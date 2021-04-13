@@ -14,6 +14,17 @@ export const Container = styled.header`
       opacity: 0.7;
     }
   }
+
+  @media screen and (max-width: 500px) {
+    img {
+      max-width: 200px;
+    }
+  }
+  @media screen and (max-width: 350px) {
+    img {
+      max-width: 150px;
+    }
+  }
 `;
 
 export const Cart = styled(Link)`
