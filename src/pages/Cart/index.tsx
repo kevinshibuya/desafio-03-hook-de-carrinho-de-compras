@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   MdDelete,
   MdAddCircleOutline,
@@ -49,6 +49,28 @@ const Cart = (): JSX.Element => {
     removeProduct(productId);
   }
 
+  useEffect(() => {
+    if (window.screen.width > 600) {
+      const wrapper =document.getElementsByClassName('cart-wrapper');
+      const counter = wrapper.length-1;
+  
+      for (let i=counter; i>=0; i--) {
+        wrapper[i].outerHTML = wrapper[i].innerHTML;
+      }
+    }
+  }, []);
+
+  window.addEventListener("orientationchange", function(event) {
+    if (window.screen.width > 600) {
+      const wrapper = document.getElementsByClassName('cart-wrapper');
+      const counter = wrapper.length - 1;
+  
+      for (let i = counter; i >= 0; i--) {
+        wrapper[i].outerHTML = wrapper[i].innerHTML;
+      }
+    }
+  });  
+
   return (
     <Container>
       <ProductTable>
@@ -67,8 +89,8 @@ const Cart = (): JSX.Element => {
               <td>
                 <img src={product.image} alt={product.title} />
               </td>
-              <div className="cartWrapper">
-                <td>
+              <div className="cart-wrapper">
+                <td className="img-wrapper">
                   <strong>{product.title}</strong>
                   <span>{cartFormatted[i].priceFormatted}</span>
                 </td>
@@ -100,9 +122,10 @@ const Cart = (): JSX.Element => {
                 <td>
                   <strong>{cartFormatted[i].subTotal}</strong>
                 </td>
-                <td>
+                <td className="remove-product-wrapper">
                   <button
                     type="button"
+                    className="remove-product"
                     data-testid="remove-product"
                     onClick={() => handleRemoveProduct(product.id)}
                   >
